@@ -1,0 +1,12 @@
+FROM openjdk:17.0.1-slim
+
+VOLUME /tmp
+RUN mkdir /app
+
+RUN groupadd -r appuser && useradd -r -s /bin/false -g appuser appuser && chown appuser:appuser /app
+USER appuser
+WORKDIR /app
+
+COPY --chown=appuser:appuser target/data-service-*.jar app.jar
+
+ENTRYPOINT ["java","-jar","app.jar"]

@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: core-service
+
+  kafka:
+    producer:
+      bootstrap-servers: ${kafka.hostname:127.0.0.1}:9092
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      properties:
+        spring.json.type.mapping: 'StatisticModel:net.betvictor.core.service.kafka.model.StatisticModel'
+
+# Feign HTTP client configuration
+feign:
+  loripsum:
+    url: https://www.loripsum.net
+  hystrix:
+    enabled: false
+    client:
+      config:
+        default:
+          connectTimeout: 250000
+          readTimeout: 250000
+
+server:
+  port : 8080
